@@ -7,7 +7,7 @@ with open("hospital_model.pkl", "rb") as f:
   st.write("Connected")
 
 model = bundle["model"]
-sccaler = bundle["scaler"]
+scaler = bundle["scaler"]
 
 features = bundle["features"]
 cols_to_scale = bundle["cols_to_scale"]
@@ -15,10 +15,11 @@ cols_to_scale = bundle["cols_to_scale"]
 dept_map_inv = bundle["dept_map_inv"]
 
 gender_map = bundle["gender_map"]
-tempt_map = bundle["temp_map"]
-hr_map = ["hr_map"]
+temp_map = bundle["temp_map"]
+hr_map = bundle["hr_map"]
 dur_map = bundle["dur_map"]
 cc_map = bundle["cc_map"]
+
 
 
 DEPT_INFO = {
@@ -77,31 +78,30 @@ DEPT_INFO = {
     }
 }
 
-st.title("🏥Smart Hospital Navigator")
+st.title("🏥 Smart Hospital Navigator")
 st.write("Fill in the patient's information below")
 
-
 st.header("Patient Information")
-age = st.number_input("Age" , min_value=1, max_value=120, value=30) 
+age = st.number_input("Age" , min_value=1, max_value=120, value=30)
 gender = st.selectbox("Gender", ["Female", "Male"])
 
-st.header("symptoms")
+st.header("Symptoms")
 
 col1, col2 = st.columns(2)
 
 with col1:
   fever = st.checkbox("Fever")
-  Cough = st.checkbox("Cough")
-  Headache = st.checkbox("Headache")
-  Chest_Pain = st.checkbox("Chest Pain")
-  Stomach_Pain = st.checkbox("Stomach Pain")
+  cough = st.checkbox("Cough")
+  headache = st.checkbox("Headache")
+  chest_pain = st.checkbox("Chest Pain")
+  stomach_pain = st.checkbox("Stomach pain")
 
 with col2:
-
   shortness_breath = st.checkbox("Shortness Of Breath")
-  Nausea_vommiting = st.checkbox("Nausea / Vommiting")
+  nausea_vomiting = st.checkbox("Nause / Vomiting")
   dizziness = st.checkbox("dizziness")
   skin_rash = st.checkbox("Skin Rash")
+
 
 st.header("Patient Condition")
 
@@ -231,6 +231,15 @@ if predict_button:
     st.warning(
         "This AI recommendation is only for educational purposes and is not a medical diagnosis."
     )
+
+
+
+
+
+
+
+
+
 
 
 
