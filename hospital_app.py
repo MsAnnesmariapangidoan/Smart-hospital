@@ -102,3 +102,135 @@ with col2:
   Nausea_vommiting = st.checkbox("Nausea / Vommiting")
   dizziness = st.checkbox("dizziness")
   skin_rash = st.checkbox("Skin Rash")
+
+st.header("Patient Condition")
+
+temperature_level = st.selectbox(
+    "Temperature",
+    options=list(temp_map.keys())
+)
+
+heart_rate_level = st.selectbox(
+    "Heart Rate",
+    options=list(hr_map.keys())
+)
+
+duration = st.selectbox(
+    "Duration of Symptoms",
+    options=list(dur_map.keys())
+)
+
+chief_complaint = st.selectbox(
+    "Chief Complaint",
+    options=list(cc_map.keys())
+)
+
+# ===============================
+# MEDICAL HISTORY
+# ===============================
+
+st.header("Medical History")
+
+hypertension = st.checkbox("Hypertension")
+
+heart_disease = st.checkbox("Heart Disease")
+
+asthma = st.checkbox("Asthma")
+
+# ===============================
+# PREDICT BUTTON
+# ===============================
+
+predict_button = st.button("Predict Department")
+
+# ===============================
+# MAKE PREDICTION
+# ===============================
+
+if predict_button:
+
+    # Create patient data
+    patient = pd.DataFrame([{
+        "age": age,
+        "gender": gender_map[gender],
+
+        "fever": int(fever),
+        "cough": int(cough),
+        "headache": int(headache),
+        "chest_pain": int(chest_pain),
+        "stomach_pain": int(stomach_pain),
+        "shortness_breath": int(shortness_breath),
+        "nausea_vomiting": int(nausea_vomiting),
+        "dizziness": int(dizziness),
+        "skin_rash": int(skin_rash),
+
+        "temperature_level": temp_map[temperature_level],
+        "heart_rate_level": hr_map[heart_rate_level],
+        "duration": dur_map[duration],
+
+        "asthma": int(asthma),
+        "hypertension": int(hypertension),
+        "heart_disease": int(heart_disease),
+
+        "chief_complaint": cc_map[chief_complaint]
+    }])
+
+    # Scale numerical features
+    patient_scaled = patient.copy()
+
+    patient_scaled[cols_to_scale] = scaler.transform(
+        patient[cols_to_scale]
+    )
+
+    # Predict department
+    prediction = model.predict(
+        patient_scaled[features]
+    )[0]
+
+    # Predict confidence
+    probability = model.predict_proba(
+        patient_scaled[features]
+    )[0]
+
+    department = dept_map_inv[prediction]
+
+    confidence = probability[prediction] * 100
+
+    # ===============================
+    # SHOW RESULT
+    # ===============================
+
+    st.divider()
+
+    st.header("Prediction Result")
+
+    info = DEPT_INFO.get(department)
+
+    if info:
+
+        st.success(
+            f"{info['icon']} Recommended Department: {department}"
+        )
+
+        st.write(f"**Confidence:** {confidence:.1f}%")
+
+        st.write("### Description")
+        st.write(info["desc"])
+
+        st.write("### What should the patient do?")
+
+        for step in info["next"]:
+            st.write(f"✅ {step}")
+
+    else:
+
+        st.success(f"Recommended Department: {department}")
+
+        st.write(f"Confidence: {confidence:.1f}%")
+
+    st.warning(
+        "This AI recommendation is only for educational purposes and is not a medical diagnosis."
+    )
+
+
+
