@@ -107,7 +107,7 @@ st.header("Patient Condition")
 
 temperature_level = st.selectbox(
     "Temperature",
-    options=list(temp_map.keys())
+    options=list(tempt_map.keys())
 )
 
 heart_rate_level = st.selectbox(
