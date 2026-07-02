@@ -9,13 +9,13 @@ with open("hospital_model.pkl", "rb") as f:
 model = bundle["model"]
 sccaler = bundle["scaler"]
 
-feature = bundle["feature"]
+features = bundle["feature"]
 cols_to_scale = bundle["cols_to_scale"]
 
 dept_map_inv = bundle["dept_map_inv"]
 
 gender_map = bundle["gender_map"]
-tempt_map = bundle["tempt_map"]
+tempt_map = bundle["temp_map"]
 hr_map = ["hr_map"]
 dur_map = bundle["dur_map"]
 cc_map = bundle["cc_map"]
@@ -107,7 +107,7 @@ st.header("Patient Condition")
 
 temperature_level = st.selectbox(
     "Temperature",
-    options=list(tempt_map.keys())
+    options=list(temp_map.keys())
 )
 
 heart_rate_level = st.selectbox(
