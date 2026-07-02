@@ -94,3 +94,11 @@ with col1:
   Cough = st.checkbox("Cough")
   Headache = st.checkbox("Headache")
   Chest_Pain = st.checkbox("Chest Pain")
+  Stomach_Pain = st.checkbox("Stomach Pain")
+
+with col2:
+
+  shortness_breath = st.checkbox("Shortness Of Breath")
+  Nausea_vommiting = st.checkbox("Nausea / Vommiting")
+  dizziness = st.checkbox("dizziness")
+  skin_rash = st.checkbox("Skin Rash")
