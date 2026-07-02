@@ -87,7 +87,7 @@ gender = st.selectbox("Gender", ["Female", "Male"])
 
 st.header("symptoms")
 
-col1, col2 = st.clumns(2)
+col1, col2 = st.columns(2)
 
 with col1:
   fever = st.checkbox("Fever")
